@@ -11,14 +11,13 @@ class Line {
 public:
     explicit Line(unsigned index, unsigned length) : index_(index), length_(length) {}
     int GetIndex() const { return index_; }
-    int GetLength() const { return length_; }
     virtual void AddClauses(CnfFormula &formula) const;
     void AddBlock(unsigned size) { blocks_.push_back(size); }
     void Parse(istream& input);
 protected:
     virtual string BlockStartVariableName(unsigned block_index, unsigned start_index) const = 0;
     virtual string CellVariableName(unsigned index) const = 0;
-    virtual string ParseStartString() = 0;
+    virtual string ParseStartString() const = 0;
 private:
     virtual void AddBlockStartsSomewhereClauses(CnfFormula &formula) const;
     virtual void AddBlockDoesntDuplicateClauses(CnfFormula &formula) const;
@@ -36,18 +35,18 @@ class Row : public Line {
 public:
     explicit Row(unsigned index, unsigned length): Line(index, length) {}
 protected:
-    virtual string BlockStartVariableName(unsigned block_index, unsigned start_index) const;
-    virtual string CellVariableName(unsigned cell_index) const;
-    virtual string ParseStartString() { return "r"; };
+    string BlockStartVariableName(unsigned block_index, unsigned start_index) const override;
+    string CellVariableName(unsigned cell_index) const override;
+    string ParseStartString() const override { return "r"; };
 };
 
 class Column : public Line {
 public:
     explicit Column(unsigned index, unsigned length): Line(index, length) {}
 protected:
-    virtual string BlockStartVariableName(unsigned block_index, unsigned start_index) const;
-    virtual string CellVariableName(unsigned cell_index) const;
-    virtual string ParseStartString() { return "c"; };
+    string BlockStartVariableName(unsigned block_index, unsigned start_index) const override;
+    string CellVariableName(unsigned cell_index) const override;
+    string ParseStartString() const override { return "c"; };
 };
 
 #endif //GRIDDLER_LINE_H

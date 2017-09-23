@@ -1,5 +1,4 @@
 #include <sstream>
-#include <iostream>
 #include "Line.h"
 
 unsigned Line::BlockMaxStart(unsigned block_size) const {

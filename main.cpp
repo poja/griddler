@@ -65,7 +65,7 @@ int GriddlerMain(int argc, char **argv) {
                   cxxopts::value<string>(input_file_path));
     options_adder("o,output-file", "The file to the print the solution. Defaults to stdout.",
                   cxxopts::value<string>(output_file_path));
-    options_adder("output-style", "The style of the output - \"O\" (default), \"bricks\", or \"bits\"",
+    options_adder("output-style", R"(The style of the output - "O" (default), "bricks", or "bits")",
                   cxxopts::value<string>(output_style));
     options_adder("h,help", "Display this help");
     try {
